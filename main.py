@@ -30,7 +30,7 @@ def get_trains(action_potentials, firing_samples, n_samples):
 
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
-    firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)
+    firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)[0]
 
     # Signal duration in seconds
     SIGNAL_DURATION = 20
@@ -42,5 +42,8 @@ def main():
     TOTAL_SAMPLES = SIGNAL_DURATION * SAMPLE_FREQUENCY
 
     action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
+
+    plt.plot(np.arange(0, 20, 1/SAMPLE_FREQUENCY), action_potential_trains[0])
+    plt.show()
 
 main()
