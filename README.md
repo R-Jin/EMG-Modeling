@@ -11,7 +11,9 @@
 <ol type="a" id="questions">
   <li>
     <h3>Create the trains of potentials corresponding to each unit (8 trains in total).</h3>
-    <p>We have done this lol</p>
+    <p>
+      We prepared a zero-array with the length of the samples within the given duration for each train. We iterate through each index in firing_sample and point at the index. From that point, we go through the action potential and add correspondingly to each step (We slice the array and copy the whole action potential in place).
+    </p>
   </li>
   <li>
     <h3>How many samples do each action potential train contain? Why? We expect a well-reasoned answer based on the theories discussed in class.</h3>
