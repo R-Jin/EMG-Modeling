@@ -49,8 +49,21 @@ def main():
 
     action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
 
-    # plt.plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
-    plt.plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
+    fig, axs = plt.subplots(2)
+    fig.suptitle('Action Potential Train')
+
+    # 0 - 20 seconds plot
+    axs[0].plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
+    axs[0].set_xlabel('Seconds [s]')
+    axs[0].set_ylabel('Arbitrary Unit [A.U]')
+
+    # 10 - 10.5 seconds plot
+    num_samples = int((10.5 - 10) * SAMPLE_FREQUENCY)
+    lower_sample_range, upper_sample_range = int(10 * SAMPLE_FREQUENCY), int(10.5 * SAMPLE_FREQUENCY)
+    axs[1].plot(np.linspace(10, 10.5, num_samples), action_potential_trains[0][lower_sample_range: upper_sample_range])
+    axs[1].set_xlabel('Seconds [s]')
+    axs[1].set_ylabel('Arbitrary Unit [A.U]')
+
     plt.show()
 
 main()
