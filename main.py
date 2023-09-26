@@ -13,18 +13,24 @@ def cart2pol(x, y):
 def get_trains(action_potentials, firing_samples, n_samples):
     """
     Args:
-        action_potentials: N x M matrix that contains M action potentials of N motor units
-        firing_samples: N x L matrix that contains N cells (one for each motor unit) and L indexes
-                        of the samples at which the discharges of action potentials occur
+        action_potentials:  N x M matrix that contains M action potentials of N motor units
+        firing_samples:     N x L matrix that contains N cells (one for each motor unit) and L indexes
+                            of the samples at which the discharges of action potentials occur
 
     Returns:
-        N x n_samples matrix that contains N action potential trains where each train has
+        trains: N x n_samples matrix that contains N action potential trains where each train has
         n_samples of total samples
     """
 
+    n_cells = len(action_potentials)
+
+    trains = np.array([np.zeros(n_samples) for _ in range(n_cells)])
+
+    return trains
+
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
-    firing_samples = np.load("./data_files/firing_samples.npy")
+    firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)
 
     # Signal duration in seconds
     SIGNAL_DURATION = 20
@@ -33,6 +39,8 @@ def main():
     SAMPLE_FREQUENCY = 10000
 
     # Number of samples within 20 seconds
-    TOTAL_SAMPLES = S_DURATION * S_FREQUENCY
+    TOTAL_SAMPLES = SIGNAL_DURATION * SAMPLE_FREQUENCY
 
-    # action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
+    action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
+
+main()
