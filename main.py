@@ -18,18 +18,22 @@ def get_trains(action_potentials, firing_samples, n_samples):
                             of the samples at which the discharges of action potentials occur
 
     Returns:
-        trains: N x n_samples matrix that contains N action potential trains where each train has
-        n_samples of total samples
+        trains:             N x n_samples matrix that contains N action potential trains where each train has
+                            n_samples of total samples
     """
 
     n_cells = len(action_potentials)
+    n_points = len(action_potentials[0])
 
     trains = np.array([np.zeros(n_samples) for _ in range(n_cells)])
 
-    return trains
+    for row in range(n_cells):
+        for index in firing_samples[row]:
+            index = index[0]
+            for i in range(n_points):
+                trains[row][index + i] += action_potentials[row][i]
 
-# How many samples an action potential is.
-def get_trains_action_potential_samples(firing_samples): return np.fromiter([len(x) for x in firing_samples]  ,dtype=int)
+    return trains
 
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
@@ -37,7 +41,6 @@ def main():
 
     # Signal duration in seconds
     SIGNAL_DURATION = 20
-
     # Sampling frequency in hz
     SAMPLE_FREQUENCY = 10000
 
@@ -45,7 +48,9 @@ def main():
     TOTAL_SAMPLES = SIGNAL_DURATION * SAMPLE_FREQUENCY
 
     action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
-    plt.plot(np.arange(0, 20, 1/SAMPLE_FREQUENCY), action_potential_trains[0])
+
+    # plt.plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
+    plt.plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
     plt.show()
 
 main()
