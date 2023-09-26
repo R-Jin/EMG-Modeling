@@ -1,7 +1,3 @@
-<style type="text/css">
-    #questions { list-style-type: upper-alpha; }
-</style>
-
 # EMG-Modeling
 
 ## Q1
@@ -32,7 +28,10 @@
   <h3>Comment on the procedure you have followed to obtain the proper time axis. We expect a 
     well-reasoned answer based on the theories discussed in class.
   </h3>
-<p></p>
+<p>
+  We calculated that within these 20s signal duration, will contain 200.000 samples. We assume that these samples are 
+  evenly distributed withing this time frame. In order to get the interval, we multiply the time range with our sample rate.
+</p>
 </li>
 <li>
     <h3>Sum the 8 action potential trains in order to obtain the EMG signal. Plot the EMG signal as 
