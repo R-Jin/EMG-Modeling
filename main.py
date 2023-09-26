@@ -35,6 +35,12 @@ def get_trains(action_potentials, firing_samples, n_samples):
 
     return trains
 
+def add_trains(trains):
+    return [sum(values) for values in zip(trains[0], trains[1], trains[2], trains[3], trains[4], trains[5], trains[6], trains[7])]
+
+
+
+
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
     firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)[0]
@@ -50,7 +56,6 @@ def main():
     action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
 
     fig, axs = plt.subplots(2)
-    fig.suptitle('Action Potential Train')
 
     # 0 - 20 seconds plot
     axs[0].plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
@@ -65,7 +70,15 @@ def main():
     axs[1].set_title("10 - 10.5 seconds")
     axs[1].set_xlabel('Seconds [s]')
     axs[1].set_ylabel('Arbitrary Unit [A.U]')
+    plt.tight_layout()
 
+    sum_of_potential_trains = np.sum(action_potential_trains, axis=0)
+    figure = plt.figure()
+    ax = plt.axes()
+    ax.plot(np.linspace(10, 10.5, num_samples), sum_of_potential_trains[lower_sample_range : upper_sample_range])
+    ax.set_title("10 - 10.5 seconds")
+    ax.set_xlabel('Seconds [s]')
+    ax.set_ylabel('Arbitrary Unit [A.U]')
     plt.show()
 
 main()
