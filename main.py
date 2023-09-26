@@ -54,6 +54,7 @@ def main():
 
     # 0 - 20 seconds plot
     axs[0].plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
+    axs[0].set_title("0 - 20 seconds")
     axs[0].set_xlabel('Seconds [s]')
     axs[0].set_ylabel('Arbitrary Unit [A.U]')
 
@@ -61,6 +62,7 @@ def main():
     num_samples = int((10.5 - 10) * SAMPLE_FREQUENCY)
     lower_sample_range, upper_sample_range = int(10 * SAMPLE_FREQUENCY), int(10.5 * SAMPLE_FREQUENCY)
     axs[1].plot(np.linspace(10, 10.5, num_samples), action_potential_trains[0][lower_sample_range: upper_sample_range])
+    axs[1].set_title("10 - 10.5 seconds")
     axs[1].set_xlabel('Seconds [s]')
     axs[1].set_ylabel('Arbitrary Unit [A.U]')
 
