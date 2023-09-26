@@ -28,6 +28,9 @@ def get_trains(action_potentials, firing_samples, n_samples):
 
     return trains
 
+# How many samples an action potential is.
+def get_trains_action_samples(firing_samples): return np.fromiter([len(x) for x in firing_samples]  ,dtype=int)
+
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
     firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)[0]
@@ -42,7 +45,6 @@ def main():
     TOTAL_SAMPLES = SIGNAL_DURATION * SAMPLE_FREQUENCY
 
     action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
-
     plt.plot(np.arange(0, 20, 1/SAMPLE_FREQUENCY), action_potential_trains[0])
     plt.show()
 
