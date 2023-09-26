@@ -8,6 +8,13 @@
 
 ![Illustration](https://cdn.discordapp.com/attachments/971680379993989130/1156167058707456062/image.png?ex=6513fbfb&is=6512aa7b&hm=f84518df38f4b45175e0b14fb48084881b3b3fc18ae31211e848cb933d730b61& "Abstraction of the data")
 
+- ### Create the trains of potentials corresponding to each unit (8 trains in total).
+  We have done this lol
+
+- ### How many samples do each action potential train contain? Why? We expect a well-reasoned answer based on the theories discussed in class.
+  Each action potential train contains 200.000 samples. This is due to the duration of the signal (20s), and our sample rate().
+
+
 <ol type="a" id="questions">
   <li>
     <h3>Create the trains of potentials corresponding to each unit (8 trains in total).</h3>
