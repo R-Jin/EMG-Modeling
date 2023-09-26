@@ -35,19 +35,13 @@ def get_trains(action_potentials, firing_samples, n_samples):
 
     return trains
 
-def add_trains(trains):
-    return [sum(values) for values in zip(trains[0], trains[1], trains[2], trains[3], trains[4], trains[5], trains[6], trains[7])]
-
-
-
-
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
     firing_samples = np.load("./data_files/firing_samples.npy", allow_pickle=True)[0]
 
     # Signal duration in seconds
     SIGNAL_DURATION = 20
-    # Sampling frequency in hz
+    # Sampling frequency in Hz
     SAMPLE_FREQUENCY = 10000
 
     # Number of samples within 20 seconds
@@ -72,6 +66,7 @@ def main():
     axs[1].set_ylabel('Arbitrary Unit [A.U]')
     plt.tight_layout()
 
+    # Sum of potential trains plot
     sum_of_potential_trains = np.sum(action_potential_trains, axis=0)
     figure = plt.figure()
     ax = plt.axes()
