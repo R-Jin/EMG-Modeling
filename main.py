@@ -29,7 +29,7 @@ def get_trains(action_potentials, firing_samples, n_samples):
     return trains
 
 # How many samples an action potential is.
-def get_trains_action_samples(firing_samples): return np.fromiter([len(x) for x in firing_samples]  ,dtype=int)
+def get_trains_action_potential_samples(firing_samples): return np.fromiter([len(x) for x in firing_samples]  ,dtype=int)
 
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
