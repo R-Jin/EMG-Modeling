@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 from scipy.fft import fft
+from scipy.signal import convolve
 import math
 import matplotlib.pyplot as plt
 
@@ -10,19 +11,59 @@ def cart2pol(x, y):
     rho = np.sqrt(x**2 + y**2)
     return [theta, rho]
 
+def get_binary_array(firing_samples, n_samples):
+    """
+    Args:
+        firing_samples:     N x L matrix that contains N cells (one for each motor unit) and L indexes
+                            of the samples at which the discharges of action potentials occur
+        n_samples:          Number of samples
+
+    Returns:
+        trains:             N x n_samples matrix that contains N binary vectors, each containing 
+                            n_samples of elements
+    """
+
+    n_cells = len(firing_samples)
+
+    binary_array = np.array([np.zeros(n_samples) for _ in range(n_cells)])
+
+    for i in n_cells:
+        for index in firing_samples[i]:
+            index = index[0]
+            binary_array[i][index] = 1
+
+    return binary_array
+
+"""
+def firstExtFunc(array, arraySize):
+    tmp = [0] * arraySize 
+    result = [tmp] * len(array[0])
+
+    for k in array:
+        i = 0
+        for n in k:
+            for m in n:
+                result[i][m[0]] = 1
+            i = i + 1
+    return result
+"""
+
+
+
 def get_trains(action_potentials, firing_samples, n_samples):
     """
     Args:
         action_potentials:  N x M matrix that contains M action potentials of N motor units
         firing_samples:     N x L matrix that contains N cells (one for each motor unit) and L indexes
                             of the samples at which the discharges of action potentials occur
+        n_samples:          Number of samples
 
     Returns:
         trains:             N x n_samples matrix that contains N action potential trains where each train has
                             n_samples of total samples
     """
 
-    n_cells = len(action_potentials)
+    n_cells = len(firing_samples)
     n_points = len(action_potentials[0])
 
     trains = np.array([np.zeros(n_samples) for _ in range(n_cells)])
