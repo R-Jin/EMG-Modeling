@@ -11,7 +11,7 @@ def cart2pol(x, y):
     rho = np.sqrt(x**2 + y**2)
     return [theta, rho]
 
-def get_binary_array(firing_samples, n_samples):
+def get_binary_vectors(firing_samples, n_samples):
     """
     Args:
         firing_samples:     N x L matrix that contains N cells (one for each motor unit) and L indexes
@@ -19,20 +19,20 @@ def get_binary_array(firing_samples, n_samples):
         n_samples:          Number of samples
 
     Returns:
-        trains:             N x n_samples matrix that contains N binary vectors, each containing 
+        binary_vectors:             N x n_samples matrix that contains N binary vectors, each containing 
                             n_samples of elements
     """
 
     n_cells = len(firing_samples)
 
-    binary_array = np.array([np.zeros(n_samples) for _ in range(n_cells)])
+    binary_vectors = np.array([np.zeros(n_samples) for _ in range(n_cells)])
 
     for i in range(n_cells):
         for index in firing_samples[i]:
             index = index[0]
-            binary_array[i][index] = 1
+            binary_vectors[i][index] = 1
 
-    return binary_array
+    return binary_vectors
 
 """
 def firstExtFunc(array, arraySize):
@@ -49,29 +49,25 @@ def firstExtFunc(array, arraySize):
 
 """
 
-def get_trains(action_potentials, firing_samples, n_samples):
+
+
+def get_trains(action_potentials, binary_vectors):
     """
     Args:
         action_potentials:  N x M matrix that contains M action potentials of N motor units
-        firing_samples:     N x L matrix that contains N cells (one for each motor unit) and L indexes
-                            of the samples at which the discharges of action potentials occur
-        n_samples:          Number of samples
+        binary_vectors:     N x L matrix that contains N rows which is a binary vector representing
+                            the time of discharges of the action potentials 
 
     Returns:
         trains:             N x n_samples matrix that contains N action potential trains where each train has
                             n_samples of total samples
     """
 
-    n_cells = len(firing_samples)
-    n_points = len(action_potentials[0])
+    n_motor_units = len(action_potentials)
+    trains = binary_vectors
 
-    trains = np.array([np.zeros(n_samples) for _ in range(n_cells)])
-
-    for row in range(n_cells):
-        for index in firing_samples[row]:
-            index = index[0]
-            for i in range(n_points):
-                trains[row][index + i] += action_potentials[row][i]
+    for i in range(n_motor_units):
+        trains[i] = convolve(trains[i], action_potentials[i])[:len(trains[i])]
 
     return trains
 
@@ -89,7 +85,8 @@ def main():
     # Number of samples within 20 seconds
     TOTAL_SAMPLES = SIGNAL_DURATION * SAMPLE_FREQUENCY
 
-    action_potential_trains = get_trains(action_potentials, firing_samples, TOTAL_SAMPLES)
+    binary_vectors = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
+    action_potential_trains = get_trains(action_potentials, binary_vectors)
 
     fig, axs = plt.subplots(2)
 
@@ -118,7 +115,7 @@ def main():
     ax.set_ylabel('Arbitrary Unit [A.U]')
 
     #Question 2
-    bin_matrix = get_binary_array(firing_samples, TOTAL_SAMPLES)
+    bin_matrix = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
 
     for m in range(0, len(bin_matrix)):
         bin_matrix[m] = convolve(bin_matrix[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
