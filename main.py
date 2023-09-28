@@ -19,7 +19,7 @@ def get_binary_vectors(firing_samples, n_samples):
         n_samples:          Number of samples
 
     Returns:
-        binary_vectors:             N x n_samples matrix that contains N binary vectors, each containing 
+        binary_vectors:     N x n_samples matrix that contains N binary vectors, each containing 
                             n_samples of elements
     """
 
@@ -63,10 +63,8 @@ def get_trains(action_potentials, binary_vectors):
     """
 
     n_motor_units = len(action_potentials)
-    trains = binary_vectors
 
-    for i in range(n_motor_units):
-        trains[i] = convolve(trains[i], action_potentials[i])[:len(trains[i])]
+    trains = [convolve(binary_vectors[i], action_potentials[i])[:len(binary_vectors[i])] for i in range(n_motor_units)]
 
     return trains
 
