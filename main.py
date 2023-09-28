@@ -46,6 +46,7 @@ def firstExtFunc(array, arraySize):
                 result[i][m[0]] = 1
             i = i + 1
     return result
+
 """
 
 
@@ -67,6 +68,8 @@ def get_trains(action_potentials, binary_vectors):
     trains = [convolve(binary_vectors[i], action_potentials[i])[:len(binary_vectors[i])] for i in range(n_motor_units)]
 
     return trains
+
+
 
 def main():
     action_potentials = np.load("./data_files/action_potentials.npy")
@@ -108,6 +111,34 @@ def main():
     ax.set_title("10 - 10.5 seconds")
     ax.set_xlabel('Seconds [s]')
     ax.set_ylabel('Arbitrary Unit [A.U]')
+
+    #Question 2
+    bin_matrix = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
+
+    for m in range(0, len(bin_matrix)):
+        bin_matrix[m] = convolve(bin_matrix[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
+
+    fig2 = plt.figure()
+    axes = plt.axes()
+    axes.set_xlabel('Seconds [s]')
+    axes.set_ylabel('Arbitrary Unit [A.U]')
+    for i in range(len(bin_matrix)):
+        axes.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[i], label = "Binary Vector " + str(i + 1))
+    axes.legend(fontsize = 8, loc = 'best')
+
     plt.show()
 
 main()
+
+
+
+"""
+From Tiffany
+
+- The filter (Hanning window) is a time domain filter. (impulse response -> time domain ??)
+
+- The action potential train should be produced from the two signals, the binary vector
+  and action potential, using a signal method (not using our current For loops)
+- Note: She did think our graphs look fine, but we used the wrong method to achieve that
+
+"""
