@@ -141,6 +141,14 @@ def main():
     axes6.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[6])
     axes6.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[6])
 
+    fig7 = plt.figure()
+    axes7 = plt.axes()
+    axes7.set_xlabel('Seconds [s]')
+    axes7.set_ylabel('Arbitrary Unit [A.U]')
+    axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[3], label = "Filtered binary vector 4")
+    axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[6], label = "Filtered binary vector 7")
+    axes7.legend()
+
     plt.show()
 
 main()
