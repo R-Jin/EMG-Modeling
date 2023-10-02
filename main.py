@@ -115,18 +115,41 @@ def main():
     ax.set_ylabel('Arbitrary Unit [A.U]')
 
     #Question 2
+    bin_matrix_con = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
     bin_matrix = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
 
-    for m in range(0, len(bin_matrix)):
-        bin_matrix[m] = convolve(bin_matrix[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
+    for m in range(0, len(bin_matrix_con)):
+        bin_matrix_con[m] = convolve(bin_matrix_con[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
 
     fig2 = plt.figure()
     axes = plt.axes()
     axes.set_xlabel('Seconds [s]')
     axes.set_ylabel('Arbitrary Unit [A.U]')
-    for i in range(len(bin_matrix)):
-        axes.plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), bin_matrix[i], label = "Binary Vector " + str(i + 1))
+    for i in range(len(bin_matrix_con)):
+        axes.plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), bin_matrix_con[i], label = "Binary Vector " + str(i + 1))
     axes.legend(fontsize = 8, loc = 'best')
+
+    fig5 = plt.figure()
+    axes5 = plt.axes()
+    axes5.set_xlabel('Seconds [s]')
+    axes5.set_ylabel('Arbitrary Unit [A.U]')
+    axes5.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[3])
+    axes5.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[3])
+
+    fig6 = plt.figure()
+    axes6 = plt.axes()
+    axes6.set_xlabel('Seconds [s]')
+    axes6.set_ylabel('Arbitrary Unit [A.U]')
+    axes6.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[6])
+    axes6.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[6])
+
+    fig7 = plt.figure()
+    axes7 = plt.axes()
+    axes7.set_xlabel('Seconds [s]')
+    axes7.set_ylabel('Arbitrary Unit [A.U]')
+    axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[3], label = "Filtered binary vector 4")
+    axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[6], label = "Filtered binary vector 7")
+    axes7.legend()
 
     plt.show()
 
