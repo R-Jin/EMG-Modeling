@@ -89,15 +89,17 @@ def main():
     fig, axs = plt.subplots(2)
 
     # 0 - 20 seconds plot
-    axs[0].plot(np.linspace(0, 20, TOTAL_SAMPLES), action_potential_trains[0])
+    axs[0].plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), action_potential_trains[0])
     axs[0].set_title("0 - 20 seconds")
     axs[0].set_xlabel('Seconds [s]')
     axs[0].set_ylabel('Arbitrary Unit [A.U]')
 
     # 10 - 10.5 seconds plot
-    num_samples = int((10.5 - 10) * SAMPLE_FREQUENCY)
-    lower_sample_range, upper_sample_range = int(10 * SAMPLE_FREQUENCY), int(10.5 * SAMPLE_FREQUENCY)
-    axs[1].plot(np.linspace(10, 10.5, num_samples), action_potential_trains[0][lower_sample_range: upper_sample_range])
+    SMALL_SAMPLE_START = 10
+    SMALL_SAMPLE_END = 10.5
+    num_samples = int((SMALL_SAMPLE_END - SMALL_SAMPLE_START) * SAMPLE_FREQUENCY)
+    lower_sample_range, upper_sample_range = int(SMALL_SAMPLE_START * SAMPLE_FREQUENCY), int(SMALL_SAMPLE_END * SAMPLE_FREQUENCY)
+    axs[1].plot(np.linspace(SMALL_SAMPLE_START, SMALL_SAMPLE_END, num_samples), action_potential_trains[0][lower_sample_range: upper_sample_range])
     axs[1].set_title("10 - 10.5 seconds")
     axs[1].set_xlabel('Seconds [s]')
     axs[1].set_ylabel('Arbitrary Unit [A.U]')
@@ -107,7 +109,7 @@ def main():
     sum_of_potential_trains = np.sum(action_potential_trains, axis=0)
     figure = plt.figure()
     ax = plt.axes()
-    ax.plot(np.linspace(10, 10.5, num_samples), sum_of_potential_trains[lower_sample_range : upper_sample_range])
+    ax.plot(np.linspace(SMALL_SAMPLE_START, SMALL_SAMPLE_END, num_samples), sum_of_potential_trains[lower_sample_range : upper_sample_range])
     ax.set_title("10 - 10.5 seconds")
     ax.set_xlabel('Seconds [s]')
     ax.set_ylabel('Arbitrary Unit [A.U]')
@@ -123,7 +125,7 @@ def main():
     axes.set_xlabel('Seconds [s]')
     axes.set_ylabel('Arbitrary Unit [A.U]')
     for i in range(len(bin_matrix)):
-        axes.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[i], label = "Binary Vector " + str(i + 1))
+        axes.plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), bin_matrix[i], label = "Binary Vector " + str(i + 1))
     axes.legend(fontsize = 8, loc = 'best')
 
     plt.show()
