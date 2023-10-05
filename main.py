@@ -129,12 +129,68 @@ def main():
         axes.plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), bin_matrix_con[i], label = "Binary Vector " + str(i + 1))
     axes.legend(fontsize = 8, loc = 'best')
 
+
+    y_han = np.hanning(SAMPLE_FREQUENCY)
+    fft_han = fft(y_han)
+    amp_han = abs(fft_han)
+    phase_han = np.arctan2(fft_han.imag, fft_han.real)
+    T0 = 1
+    T = 1 / SAMPLE_FREQUENCY
+    N0 = SAMPLE_FREQUENCY
+    k = np.arange(0, N0, step = 1)
+    f_axis = k / T0
+
+    fig9 = plt.figure()
+    axes9 = plt.axes()
+    axes9.plot(np.linspace(0,1,SAMPLE_FREQUENCY), y_han)
+
+    fig8 = plt.figure()
+    fig8.suptitle("DFT of Hanning window")
+    axes8 = plt.axes()
+    axes8.plot(f_axis[0:int(N0/2)], amp_han[0:int(N0/2)])
+    axes8.set_xlabel('Frequency [Hz]')
+    axes8.set_ylabel('Arbitrary Unit [A.U]')
+    axes8.set_ylim(0, 0.0001)
+
+    fig81 = plt.figure()
+    fig81.suptitle("DFT of Hanning window")
+    axes81 = plt.axes()
+    axes81.plot(f_axis[0:int(N0/2)], phase_han[0:int(N0/2)])
+    axes81.set_xlabel('Frequency [Hz]')
+    axes81.set_ylabel('/_ F [rad]')
+
     fig5 = plt.figure()
     axes5 = plt.axes()
     axes5.set_xlabel('Seconds [s]')
     axes5.set_ylabel('Arbitrary Unit [A.U]')
     axes5.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix[3])
     axes5.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[3])
+
+    k2 = np.arange(0, 20*N0, step = 1)
+    f_axis2 = k / T0
+    fft_fig51 = fft(bin_matrix[3])
+    amp_fig51 = abs(fft_fig51)
+    phase_fig51 = np.arctan2(fft_fig51.imag, fft_fig51.real)
+    fft_fig52 = fft(bin_matrix_con[3])
+    amp_fig52 = abs(fft_fig52)
+    phase_fig52 = np.arctan2(fft_fig52.imag, fft_fig52.real)
+
+    fig5fft = plt.figure()
+    axes5fft = plt.axes()
+    axes5fft.plot(f_axis2[0:int(N0/2)], amp_fig51[0:int(N0/2)], label = "bin vector")
+    axes5fft.plot(f_axis2[0:int(N0/2)], amp_fig52[0:int(N0/2)], label = "filtered bin")
+    axes5fft.set_xlabel('Frequency [Hz]')
+    axes5fft.set_ylabel('Arbitrary Unit [A.U]')
+    axes5fft.set_ylim(-1, 100)
+    axes5fft.legend()
+
+    fig51fft = plt.figure()
+    axes51fft = plt.axes()
+    axes51fft.plot(f_axis2[0:int(N0/2)], phase_fig51[0:int(N0/2)], label = "bin vector")
+    axes51fft.plot(f_axis2[0:int(N0/2)], phase_fig52[0:int(N0/2)], label = "filtered bin")
+    axes51fft.set_xlabel('Frequency [Hz]')
+    axes51fft.set_ylabel('/_ F [rad]')
+    axes51fft.legend()
 
     fig6 = plt.figure()
     axes6 = plt.axes()
