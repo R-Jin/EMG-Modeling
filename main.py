@@ -140,6 +140,9 @@ def main():
     k = np.arange(0, N0, step = 1)
     f_axis = k / T0
 
+    fft_han2 = fft(np.hanning(TOTAL_SAMPLES))
+    amp_han2 = abs(fft_han2)
+
     fig9 = plt.figure()
     axes9 = plt.axes()
     axes9.plot(np.linspace(0,1,SAMPLE_FREQUENCY), y_han)
@@ -147,10 +150,12 @@ def main():
     fig8 = plt.figure()
     fig8.suptitle("DFT of Hanning window")
     axes8 = plt.axes()
-    axes8.plot(f_axis[0:int(N0/2)], amp_han[0:int(N0/2)])
+    axes8.plot(f_axis[0:int(N0/2)], amp_han[0:int(N0/2)], label = "1 sec")
+    axes8.plot(f_axis[0:int(N0/2)], amp_han2[0:int(N0/2)], label = "20 sec")
     axes8.set_xlabel('Frequency [Hz]')
     axes8.set_ylabel('Arbitrary Unit [A.U]')
     axes8.set_ylim(0, 0.0001)
+    axes8.legend()
 
     fig81 = plt.figure()
     fig81.suptitle("DFT of Hanning window")
@@ -191,6 +196,21 @@ def main():
     axes51fft.set_xlabel('Frequency [Hz]')
     axes51fft.set_ylabel('/_ F [rad]')
     axes51fft.legend()
+    
+    fft_han2 = fft(np.hanning(TOTAL_SAMPLES))
+    amp_han2 = abs(fft_han2)
+    fft_mul = np.multiply(amp_han2, amp_fig51)
+    amp_mul = abs(fft_mul)
+
+    fig521 = plt.figure()
+    axes521 = plt.axes()
+    axes521.plot(f_axis2[0:int(N0/2)], amp_fig52[0:int(N0/2)], label = "Convolve -> Transform")
+    axes521.plot(f_axis2[0:int(N0/2)], 50000*amp_mul[0:int(N0/2)], label = "Transform -> Multiply")
+    axes521.set_xlabel('Frequency [Hz]')
+    axes521.set_ylabel('Arbitrary Unit [A.U]')
+    axes521.set_ylim(-1, 100)
+    axes521.legend()
+
 
     fig6 = plt.figure()
     axes6 = plt.axes()
