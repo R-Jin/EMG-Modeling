@@ -132,16 +132,3 @@ def main():
     plt.show()
 
 main()
-
-
-
-"""
-From Tiffany
-
-- The filter (Hanning window) is a time domain filter. (impulse response -> time domain ??)
-
-- The action potential train should be produced from the two signals, the binary vector
-  and action potential, using a signal method (not using our current For loops)
-- Note: She did think our graphs look fine, but we used the wrong method to achieve that
-
-"""
