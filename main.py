@@ -115,8 +115,9 @@ def main():
     ax.set_ylabel('Arbitrary Unit [A.U]')
 
     #Question 2
-    bin_matrix_con = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
     bin_matrix = get_binary_vectors(firing_samples, TOTAL_SAMPLES)
+    # Get binary vectors that are convolved with hanning window
+    bin_matrix_con = [convolve(bin_vec, np.hanning(SAMPLE_FREQUENCY), mode="same") for bin_vec in bin_matrix]
 
     for m in range(0, len(bin_matrix_con)):
         bin_matrix_con[m] = convolve(bin_matrix_con[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
