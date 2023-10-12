@@ -5,11 +5,6 @@ from scipy.signal import convolve
 import math
 import matplotlib.pyplot as plt
 
-def cart2pol(x, y):
-    # converts cartesian coordinates to polar coordinates
-    theta = np.arctan2(y, x)
-    rho = np.sqrt(x**2 + y**2)
-    return [theta, rho]
 
 def get_binary_vectors(firing_samples, n_samples):
     """
@@ -33,22 +28,6 @@ def get_binary_vectors(firing_samples, n_samples):
             binary_vectors[i][index] = 1
 
     return binary_vectors
-
-"""
-def firstExtFunc(array, arraySize):
-    tmp = [0] * arraySize 
-    result = [tmp] * len(array[0])
-
-    for k in array:
-        i = 0
-        for n in k:
-            for m in n:
-                result[i][m[0]] = 1
-            i = i + 1
-    return result
-
-"""
-
 
 
 def get_trains(action_potentials, binary_vectors):
