@@ -119,9 +119,7 @@ def main():
     # Get binary vectors that are convolved with hanning window
     bin_matrix_con = [convolve(bin_vec, np.hanning(SAMPLE_FREQUENCY), mode="same") for bin_vec in bin_matrix]
 
-    for m in range(0, len(bin_matrix_con)):
-        bin_matrix_con[m] = convolve(bin_matrix_con[m], np.hanning(SAMPLE_FREQUENCY), mode='same')
-
+    # Plotting all convolved vectors
     fig2 = plt.figure()
     axes = plt.axes()
     axes.set_xlabel('Seconds [s]')
