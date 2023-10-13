@@ -35,7 +35,7 @@ def main():
     T = 1/1024    # 1024 samples in 1 second
     T0 = 1
     N0 = 1024     # T0 / T
-    
+
     f2 = EMG_signal
 
     f2_inter = np.sum([EMG_signal_inter, y_sin_axis], axis = 0)

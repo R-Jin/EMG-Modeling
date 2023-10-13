@@ -33,7 +33,7 @@ def get_binary_vectors(firing_samples, n_samples):
 def get_trains(action_potentials, binary_vectors):
     """
     Args:
-        action_potentials:  N x M matrix that contains M action potentials of N motor units
+        action_potentials:  N x M matrix that contains M samples of the action potentials of N motor units
         binary_vectors:     N x L matrix that contains N rows which is a binary vector representing
                             the time of discharges of the action potentials 
 
