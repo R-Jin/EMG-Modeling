@@ -124,7 +124,7 @@ def main():
     fig2 = plt.figure()
     axes = plt.axes()
     axes.set_xlabel('Seconds [s]')
-    axes.set_ylabel('Arbitrary Unit [A.U]')
+    axes.set_ylabel('Amplitude [A.U]')
     for i in range(len(bin_matrix_con)):
         axes.plot(np.linspace(0, SIGNAL_DURATION, TOTAL_SAMPLES), bin_matrix_con[i], label = "Binary Vector " + str(i + 1))
     axes.legend(fontsize = 8, loc = 'best')
@@ -185,7 +185,7 @@ def main():
     axes5fft.plot(f_axis2[0:int(N0/2)], amp_fig51[0:int(N0/2)], label = "bin vector")
     axes5fft.plot(f_axis2[0:int(N0/2)], amp_fig52[0:int(N0/2)], label = "filtered bin")
     axes5fft.set_xlabel('Frequency [Hz]')
-    axes5fft.set_ylabel('Arbitrary Unit [A.U]')
+    axes5fft.set_ylabel('Amplitude [A.U]')
     axes5fft.set_ylim(-1, 100)
     axes5fft.legend()
 
@@ -222,7 +222,7 @@ def main():
     fig7 = plt.figure()
     axes7 = plt.axes()
     axes7.set_xlabel('Seconds [s]')
-    axes7.set_ylabel('Arbitrary Unit [A.U]')
+    axes7.set_ylabel('Amplitude [A.U]')
     axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[3], label = "Filtered binary vector 4")
     axes7.plot(np.linspace(0, 20, TOTAL_SAMPLES), bin_matrix_con[6], label = "Filtered binary vector 7")
     axes7.legend()
